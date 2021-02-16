@@ -9,6 +9,6 @@ interface RetroService {
     companion object{
         const val BASE_URL="https://rickandmortyapi.com/api/"
     }
-    @GET("character")
-    suspend fun getData(@Query("page") page: Int ): Call<RickAndMortyModel>
+    @GET("character/")
+    suspend fun getData(@Query("page") page: Int ): RickAndMortyModel
 }
