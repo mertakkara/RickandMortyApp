@@ -7,8 +7,10 @@ import android.view.SearchEvent
 import android.view.View
 import android.widget.Adapter
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterAdapter
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterLoadStateAdapter
 import com.rationalstudio.rickandmortyapp.R
@@ -34,6 +36,29 @@ class CharacterFragment:Fragment(R.layout.fragment_character) {
                 footer = CharacterLoadStateAdapter{adapter.retry()}
 
             )
+            btnTryAgain.setOnClickListener{
+                adapter.retry()
+            }
+
+        }
+
+
+        adapter.addLoadStateListener {loadState->
+            binding.apply {
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                btnTryAgain.isVisible = loadState.source.refresh is LoadState.Error
+                tvFailed.isVisible = loadState.source.refresh is LoadState.Error
+
+                if(loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount<1){
+                    recyclerView.isVisible = false
+                    tvNotFound.isVisible = true
+                }else{
+                    tvNotFound.isVisible = false
+                }
+
+            }
+
         }
 
         viewModel.characters.observe(viewLifecycleOwner){

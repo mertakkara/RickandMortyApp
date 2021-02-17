@@ -24,20 +24,29 @@
     <TextView
         android:id="@+id/tvFailed"
         android:layout_centerInParent="true"
-        android:layout_above="@id/btnRetry"
+        android:layout_above="@id/btn_try_again"
         android:text="Error Occured."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <Button
-        android:id="@+id/btnRetry"
+    <TextView
+        android:id="@+id/tv_not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Retry"
+        android:text="Not Found"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Try Again"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </RelativeLayout>
