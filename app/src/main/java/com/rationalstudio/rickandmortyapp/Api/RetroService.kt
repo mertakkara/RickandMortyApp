@@ -11,4 +11,7 @@ interface RetroService {
     }
     @GET("character/")
     suspend fun getData(@Query("page") page: Int ): RickAndMortyModel
+
+    @GET("character/")
+    suspend fun searchCharacter(@Query("name") name: String ,@Query("page") page: Int ): RickAndMortyModel
 }

@@ -18,8 +18,20 @@ class CharacterRepository @Inject constructor(private val characterApi:RetroServ
                     maxSize = 20,
                     enablePlaceholders = false
                 ),
-                pagingSourceFactory = {CharacterPagingSource(characterApi)}
+                pagingSourceFactory = {CharacterPagingSource(characterApi,null)}
             ).liveData
+
+
+    fun getSearchCharacters(name:String)=
+        Pager(
+            config= PagingConfig(
+                pageSize = 5,
+                maxSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {CharacterPagingSource(characterApi,name)}
+        ).liveData
+
 
 
 }
