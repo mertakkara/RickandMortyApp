@@ -3,23 +3,23 @@ package com.rationalstudio.rickandmortyapp.UI.Fragment
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.SearchEvent
 import android.view.View
-import android.widget.Adapter
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterAdapter
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterLoadStateAdapter
+import com.rationalstudio.rickandmortyapp.Models.RickAndMortyCharacterModel
 import com.rationalstudio.rickandmortyapp.R
 import com.rationalstudio.rickandmortyapp.databinding.FragmentCharacterBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CharacterFragment:Fragment(R.layout.fragment_character) {
+class CharacterFragment:Fragment(R.layout.fragment_character),CharacterAdapter.OnItemClickListener {
     private val viewModel by viewModels<CharacterViewModel>()
     private var _binding : FragmentCharacterBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +27,7 @@ class CharacterFragment:Fragment(R.layout.fragment_character) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCharacterBinding.bind(view)
 
-        val adapter = CharacterAdapter()
+        val adapter = CharacterAdapter(this)
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
@@ -92,6 +92,12 @@ class CharacterFragment:Fragment(R.layout.fragment_character) {
             }
 
         })
+    }
+
+    override fun onItemClick(rickAndMortyCharacter: RickAndMortyCharacterModel) {
+        val action = CharacterFragmentDirections.actionNavListToNavDetails(rickAndMortyCharacter)
+        findNavController().navigate(action)
+
     }
 
 }

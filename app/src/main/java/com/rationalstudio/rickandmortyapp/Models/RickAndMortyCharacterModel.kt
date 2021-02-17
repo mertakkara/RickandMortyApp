@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class RickAndMortCharacterModel (
+data class RickAndMortyCharacterModel (
         val name: String?,
         val status: String?,
         val image: String?

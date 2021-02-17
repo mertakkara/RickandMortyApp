@@ -14,5 +14,17 @@
         android:id="@+id/nav_list"
         android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.CharacterFragment"
         android:label="Character"
-        tools:layout="@layout/fragment_character"/>
+        tools:layout="@layout/fragment_character">
+        <action
+            android:id="@+id/action_nav_list_to_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.DetailsFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_details" >
+        <argument android:name="character"
+            app:argType="com.rationalstudio.rickandmortyapp.Models.RickAndMortyCharacterModel" />
+    </fragment>
 </navigation>

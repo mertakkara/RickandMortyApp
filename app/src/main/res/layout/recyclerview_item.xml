@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="@id/image"
         android:ellipsize="end"
         android:textColor="#FFF"
+        android:gravity="center_horizontal"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@id/image"/>
 
