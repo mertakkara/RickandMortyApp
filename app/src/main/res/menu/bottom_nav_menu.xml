@@ -7,8 +7,8 @@
         android:icon="@drawable/ic_charecter"/>
 
     <item
-        android:id="@+id/nav_favorite"
-        android:title="Favorite"
-        android:icon="@drawable/ic_baseline_favorite_24"/>
+        android:id="@+id/nav_episode"
+        android:title="Episode"
+        android:icon="@drawable/ic_episode"/>
 
 </menu>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -12,11 +13,17 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rationalstudio.rickandmortyapp.R
+//import com.rationalstudio.rickandmortyapp.UI.DetailsViewModel
 import com.rationalstudio.rickandmortyapp.databinding.FragmentDetailsBinding
 import kotlinx.android.synthetic.main.recyclerview_item.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailsFragment:Fragment(R.layout.fragment_details) {
     private val args by navArgs<DetailsFragmentArgs>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +53,9 @@ class DetailsFragment:Fragment(R.layout.fragment_details) {
 
             tvDescription.text = character.status
             tvCharacterTitle.text = character.name
+
         }
     }
+
 
 }

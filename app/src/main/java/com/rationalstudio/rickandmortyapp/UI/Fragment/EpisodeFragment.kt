@@ -12,28 +12,31 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterAdapter
 import com.rationalstudio.rickandmortyapp.Adapters.CharacterLoadStateAdapter
+import com.rationalstudio.rickandmortyapp.Adapters.EpisodeAdapter
+import com.rationalstudio.rickandmortyapp.Adapters.EpisodeLoadStateAdapter
+import com.rationalstudio.rickandmortyapp.Models.EpisodeModel
 import com.rationalstudio.rickandmortyapp.Models.RickAndMortyCharacterModel
 import com.rationalstudio.rickandmortyapp.R
 import com.rationalstudio.rickandmortyapp.databinding.FragmentCharacterBinding
+import com.rationalstudio.rickandmortyapp.databinding.FragmentEpisodeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class CharacterFragment:Fragment(R.layout.fragment_character),CharacterAdapter.OnItemClickListener {
-    private val viewModel by viewModels<CharacterViewModel>()
-    private var _binding : FragmentCharacterBinding? = null
+class EpisodeFragment: Fragment(R.layout.fragment_episode), EpisodeAdapter.OnItemClickListener {
+    private val viewModel by viewModels<EpisodeViewModel>()
+    private var _binding : FragmentEpisodeBinding? = null
     private val binding get() = _binding!!
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentCharacterBinding.bind(view)
+        _binding = FragmentEpisodeBinding.bind(view)
 
-        val adapter = CharacterAdapter(this)
+        val adapter = EpisodeAdapter(this)
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = CharacterLoadStateAdapter{adapter.retry()},
-                footer = CharacterLoadStateAdapter{adapter.retry()}
+                    header = EpisodeLoadStateAdapter{adapter.retry()},
+                    footer = EpisodeLoadStateAdapter{adapter.retry()}
 
             )
             btnTryAgain.setOnClickListener{
@@ -61,9 +64,8 @@ class CharacterFragment:Fragment(R.layout.fragment_character),CharacterAdapter.O
 
         }
 
-        viewModel.characters.observe(viewLifecycleOwner){
+        viewModel.episodes.observe(viewLifecycleOwner){
             adapter.submitData(viewLifecycleOwner.lifecycle,it)
-
         }
 
         setHasOptionsMenu(true)
@@ -80,7 +82,7 @@ class CharacterFragment:Fragment(R.layout.fragment_character),CharacterAdapter.O
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if(query!=null){
                     binding.recyclerView.scrollToPosition(0)
-                    viewModel.searchCharacters(query)
+                    viewModel.searchEpisodes(query)
                     searchView.clearFocus()
                 }
                 return true
@@ -93,13 +95,16 @@ class CharacterFragment:Fragment(R.layout.fragment_character),CharacterAdapter.O
             }
 
         })
+
     }
 
-    override fun onItemClick(rickAndMortyCharacter: RickAndMortyCharacterModel) {
-        val action = CharacterFragmentDirections.actionNavListToNavDetails(rickAndMortyCharacter)
+
+    override fun onItemClick(episodeModel: EpisodeModel) {
+        val action = EpisodeFragmentDirections.actionNavEpisodeToEpisodeDetailFragment(episodeModel)
         findNavController().navigate(action)
 
 
     }
+
 
 }

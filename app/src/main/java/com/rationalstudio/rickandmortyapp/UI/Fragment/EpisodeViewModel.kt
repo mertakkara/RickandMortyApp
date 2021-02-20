@@ -9,9 +9,10 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.rationalstudio.rickandmortyapp.Repository.CharacterRepository
+import com.rationalstudio.rickandmortyapp.Repository.EpisodeRepository
 
-class CharacterViewModel @ViewModelInject constructor(private val repository: CharacterRepository,
-@Assisted state: SavedStateHandle
+class EpisodeViewModel @ViewModelInject constructor(private val repository: EpisodeRepository,
+                                                    @Assisted state: SavedStateHandle
 ):ViewModel() {
 
     companion object{
@@ -19,15 +20,15 @@ class CharacterViewModel @ViewModelInject constructor(private val repository: Ch
         private const val EMPTY_QUERY=""
     }
     private val currentQuery=state.getLiveData(CURRENT_QUERY, EMPTY_QUERY)
-    val characters = currentQuery.switchMap {query->
+    val episodes = currentQuery.switchMap {query->
         if( !query.isEmpty()){
-            repository.getSearchCharacters(query)
+            repository.getSearchEpisode(query)
         }else
-            repository.getAllCharacters().cachedIn(viewModelScope)
+            repository.getAllEpisodes().cachedIn(viewModelScope)
 
     }
 
-    fun searchCharacters(query: String){
+    fun searchEpisodes(query: String){
         currentQuery.value = query
     }
 }

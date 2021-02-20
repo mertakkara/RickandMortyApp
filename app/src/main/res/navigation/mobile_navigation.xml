@@ -6,10 +6,14 @@
     app:startDestination="@id/nav_list">
 
     <fragment
-        android:id="@+id/nav_favorite"
-        android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.FavoriteFragment"
-        android:label="Favorite"
-        tools:layout="@layout/fragment_favorite"/>
+        android:id="@+id/nav_episode"
+        android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.EpisodeFragment"
+        android:label="Episode"
+        tools:layout="@layout/fragment_episode">
+        <action
+            android:id="@+id/action_nav_episode_to_episodeDetailFragment"
+            app:destination="@id/nav_episode_detail" />
+    </fragment>
     <fragment
         android:id="@+id/nav_list"
         android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.CharacterFragment"
@@ -26,5 +30,14 @@
         tools:layout="@layout/fragment_details" >
         <argument android:name="character"
             app:argType="com.rationalstudio.rickandmortyapp.Models.RickAndMortyCharacterModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_episode_detail"
+        android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.EpisodeDetailFragment"
+        android:label="EpisodeDetailFragment" >
+        tools:layout="@layout/episode_detail_fragment" >
+        <argument
+            android:name="episode"
+            app:argType="com.rationalstudio.rickandmortyapp.Models.EpisodeModel" />
     </fragment>
 </navigation>
