@@ -15,14 +15,19 @@ import com.bumptech.glide.request.target.Target
 import com.rationalstudio.rickandmortyapp.R
 //import com.rationalstudio.rickandmortyapp.UI.DetailsViewModel
 import com.rationalstudio.rickandmortyapp.databinding.FragmentDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.recyclerview_item.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
+@AndroidEntryPoint
 class DetailsFragment:Fragment(R.layout.fragment_details) {
     private val args by navArgs<DetailsFragmentArgs>()
+    private val viewModel by viewModels<DetailsViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,11 +56,35 @@ class DetailsFragment:Fragment(R.layout.fragment_details) {
 
                     }).into(ivCharacterPoster)
 
+            var _isChecked = false
+            CoroutineScope(Dispatchers.IO).launch{
+                val count = viewModel.checkCharacter(character.kid)
+                withContext(Main){
+                    if (count > 0){
+                        toggleFavorite.isChecked = true
+                        _isChecked = true
+                    }else{
+                        toggleFavorite.isChecked = false
+                        _isChecked = false
+                    }
+                }
+            }
+
             tvDescription.text = character.status
             tvCharacterTitle.text = character.name
+
+            toggleFavorite.setOnClickListener {
+                _isChecked = !_isChecked
+                if (_isChecked){
+                    viewModel.addToFavorite(character)
+                } else{
+                    viewModel.removeFromFavorite(character.kid)
+                }
+                toggleFavorite.isChecked = _isChecked
+            }
+        }
 
         }
     }
 
 
-}

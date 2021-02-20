@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rationalstudio.rickandmortyapp.Api.RetroService
+import com.rationalstudio.rickandmortyapp.Database.FavoriteCharacterDatabase
+import com.rationalstudio.rickandmortyapp.Models.FavoriteCharacter
 //import com.rationalstudio.rickandmortyapp.FavoriteCharacterDatabase
 //import com.rationalstudio.rickandmortyapp.FavoriteCharacterDatabase
 //import com.rationalstudio.rickandmortyapp.Models.FavoriteCharacterDao
@@ -20,6 +22,22 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideFavCharacterDatabase(
+            @ApplicationContext app:Context
+    ) = Room.databaseBuilder(
+            app,
+            FavoriteCharacterDatabase::class.java,
+            "character_db"
+    ).build()
+
+    @Singleton
+    @Provides
+    fun provideFavCharacterDao(db: FavoriteCharacterDatabase) = db.getFavoriteCharacterDao()
+
+
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit =
