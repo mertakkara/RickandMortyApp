@@ -39,11 +39,12 @@ class FavoriteFragment: Fragment(R.layout.fragment_favorite)  {
                 val character = RickAndMortyCharacterModel(
                         favoriteCharacter.cid,
                         favoriteCharacter.name,
-                        favoriteCharacter.cimage,
-                        favoriteCharacter.status
+                        favoriteCharacter.status,
+                        favoriteCharacter.cimage
+
                 )
-               // val action = FavoriteFragmentDirections.actionNavFavoriteToNavDetails(character)
-              //  findNavController().navigate(action)
+               val action = FavoriteFragmentDirections.actionNavFavoriteToNavDetails(character)
+                findNavController().navigate(action)
             }
 
         })

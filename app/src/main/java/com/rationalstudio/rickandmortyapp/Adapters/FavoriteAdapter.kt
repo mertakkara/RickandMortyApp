@@ -37,6 +37,7 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>(
                         .error(R.drawable.ic_error)
                         .into(image)
                 tvName.text = favoriteCharacter.name
+                tvStatus.text = favoriteCharacter.status
                 binding.root.setOnClickListener { onItemClickCallback?.onItemClick(favoriteCharacter) }
             }
         }
