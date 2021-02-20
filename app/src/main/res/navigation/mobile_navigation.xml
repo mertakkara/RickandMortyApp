@@ -40,4 +40,13 @@
             android:name="episode"
             app:argType="com.rationalstudio.rickandmortyapp.Models.EpisodeModel" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="com.rationalstudio.rickandmortyapp.UI.Fragment.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_nav_favorite_to_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
 </navigation>

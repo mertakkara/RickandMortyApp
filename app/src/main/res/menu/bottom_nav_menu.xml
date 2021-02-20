@@ -11,4 +11,9 @@
         android:title="Episode"
         android:icon="@drawable/ic_episode"/>
 
+    <item
+        android:id="@+id/nav_favorite"
+        android:title="Favorite"
+        android:icon="@drawable/ic_baseline_favorite_24"/>
+
 </menu>
